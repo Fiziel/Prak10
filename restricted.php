@@ -1,8 +1,10 @@
 <?php 
    session_start (); 
    require_once 'connection.php'; 
+   $login = $_SESSION ['Login']; 
+   $password = $_SESSION ['Password']; 
    if (!count($_POST)>0) {
-    $res = mysqli_query ($conn, "SELECT * FROM users");
+    $res = mysqli_query ($conn, "SELECT * FROM users WHERE login ='$login' and password = '$password'");
     $row = mysqli_fetch_array($res);
    if (!($_SESSION['id'] = $row['id'] && $_SESSION['login'] = $row['login'])) 
     {
@@ -14,7 +16,7 @@
        </Html> ";
     }
     else{
-      echo "Ваша сторінка";
+      echo "Добро пожаловать, ".$row['first_name']." ".$row['last_name'];
     }
   }
   ?> 
